@@ -1,0 +1,74 @@
+/* =========================================================
+   Middle-earth Fellowship Manager - Custom Styles
+   ========================================================= */
+
+/* LOTR Color Palette */
+:root {
+    --forest-green: #2C4C3B; /* Deep woodland green */
+    --elven-gold: #D4AF37;   /* Metallic gold accent */
+    --parchment: #F4F1EA;    /* Soft off-white paper color */
+    --dark-wood: #3E2723;    /* Deep brown for readable text */
+}
+
+/* Base Typography & Background */
+body.parchment-bg {
+    background-color: var(--parchment);
+    font-family: 'Lora', serif; /* Highly readable serif for body text */
+    color: var(--dark-wood);
+}
+
+/* Headings and Thematic Elements */
+.lotr-font, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+}
+
+/* Utility Classes for Theme Colors */
+.bg-forest {
+    background-color: var(--forest-green) !important;
+}
+
+.text-gold {
+    color: var(--elven-gold) !important;
+}
+
+.border-top-gold {
+    border-top: 3px solid var(--elven-gold) !important;
+}
+
+.border-gold {
+    border-color: var(--elven-gold) !important;
+}
+
+/* Navbar Customization */
+.navbar-dark .navbar-nav .nav-link {
+    color: #e0e0e0;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus {
+    color: var(--elven-gold);
+}
+
+/* Custom Alert Styling */
+.lotr-alert {
+    border-left: 4px solid var(--forest-green);
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+
+/* Reusable Themed Card (For Characters/Fellowships later) */
+.lotr-card {
+    background-color: #fffcf5;
+    border: 1px solid #e0d8c3;
+    border-radius: 8px;
+    box-shadow: 2px 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.lotr-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 2px 6px 15px rgba(0,0,0,0.1);
+}
