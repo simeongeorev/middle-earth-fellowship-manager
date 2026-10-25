@@ -72,3 +72,73 @@ body.parchment-bg {
     transform: translateY(-3px);
     box-shadow: 2px 6px 15px rgba(0,0,0,0.1);
 }
+
+/* =========================================================
+   Form Fields (styles the plain {{ form }} output)
+   ========================================================= */
+
+/* More space between the stacked field wrappers */
+.lotr-card form > div {
+    margin-bottom: 1.5rem;
+}
+
+/* Labels use the theme heading font and sit above the input */
+.lotr-card form label {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    color: var(--forest-green);
+    margin-bottom: 0.4rem;
+}
+
+/* Full-width inputs, selects and textareas with a themed border */
+.lotr-card form input[type="text"],
+.lotr-card form input[type="number"],
+.lotr-card form input[type="date"],
+.lotr-card form select,
+.lotr-card form textarea {
+    display: block;
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    color: var(--dark-wood);
+    background-color: #ffffff;
+    border: 1px solid #cfc6ad;
+    border-radius: 6px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lotr-card form input:focus,
+.lotr-card form select:focus,
+.lotr-card form textarea:focus {
+    outline: none;
+    border-color: var(--elven-gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+}
+
+.lotr-card form textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+.lotr-card form select[multiple] {
+    min-height: 110px;
+}
+
+/* Help text (Django renders it as <span class="helptext">) */
+.lotr-card form .helptext {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.85rem;
+    color: #8a7f66;
+}
+
+/* Field errors (Django renders them as <ul class="errorlist">) */
+.lotr-card form ul.errorlist {
+    list-style: none;
+    padding-left: 0;
+    margin: 0.35rem 0 0;
+    font-size: 0.85rem;
+    color: #a4262c;
+}

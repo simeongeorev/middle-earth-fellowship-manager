@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | Middle-earth Fellowship Manager{% endblock %}
+
+{% block content %}
+
+<div class="text-center mb-5">
+    <h1 class="lotr-font">The Fellowship Manager</h1>
+    <p class="lead text-muted">"You shall not pass!" - Guard the realm, one quest at a time.</p>
+</div>
+
+<!-- Summary Stats -->
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="lotr-card border-top-gold text-center p-4 h-100">
+            <h2 class="text-gold fs-1">{{ total_fellowships|default:"0" }}</h2>
+            <h6 class="text-uppercase text-muted">Total Fellowships</h6>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="lotr-card border-top-gold text-center p-4 h-100">
+            <h2 class="text-gold fs-1">{{ total_characters|default:"0" }}</h2>
+            <h6 class="text-uppercase text-muted">Heroes (Characters)</h6>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="lotr-card border-top-gold text-center p-4 h-100">
+            <h2 class="text-gold fs-1">{{ total_quests|default:"0" }}</h2>
+            <h6 class="text-uppercase text-muted">Total Quests</h6>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Links -->
+<div class="row g-4 mt-2">
+    <div class="col-md-4">
+        <div class="lotr-card p-4 h-100">
+            <h4>Fellowships</h4>
+            <p class="mb-3">Manage the bands of heroes sworn to protect Middle-earth.</p>
+            <a href="{% url 'fellowships:list' %}" class="btn bg-forest text-white">View Fellowships</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="lotr-card p-4 h-100">
+            <h4>Characters</h4>
+            <p class="mb-3">Recruit wizards, warriors, and the occasional hobbit.</p>
+            <a href="#" class="btn bg-forest text-white">View Characters</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="lotr-card p-4 h-100">
+            <h4>Quests</h4>
+            <p class="mb-3">From safe errands in the Shire to the shadow of Mordor.</p>
+            <a href="#" class="btn bg-forest text-white">View Quests</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

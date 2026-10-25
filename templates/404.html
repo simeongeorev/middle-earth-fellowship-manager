@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Page Not Found | Middle-earth Fellowship Manager{% endblock %}
+
+{% block content %}
+<div class="text-center py-5">
+    <h1 class="display-4 text-gold mb-3">404</h1>
+    <h2 class="mb-3">Page Lost in Mordor</h2>
+    <p class="lead text-muted mb-4">
+        The path you seek has vanished into the darkness beyond the Mountain of Fire.
+        Even the Nazgul cannot find this page.
+    </p>
+    <div class="lotr-card border-top-gold p-4 d-inline-block">
+        <p class="mb-0">"All that is gold does not glitter..."</p>
+    </div>
+    <a href="{% url 'home' %}" class="btn bg-forest text-white mt-4">Return to Safety</a>
+</div>
+{% endblock %}

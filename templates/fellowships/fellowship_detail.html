@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ fellowship.name }} | Middle-earth Fellowship Manager{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">{{ fellowship.name }}</h1>
+    <div>
+        <a href="{% url 'fellowships:edit' %}" class="btn bg-forest text-white">Edit</a>
+        <a href="{% url 'fellowships:delete' %}" class="btn btn-outline-danger">Delete</a>
+    </div>
+</div>
+
+<!-- Fellowship Details -->
+<div class="card bg-white shadow-sm mb-4 border-top-gold">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-3 fw-semibold">Leader</dt>
+            <dd class="col-sm-9">{{ fellowship.leader_name }}</dd>
+
+            <dt class="col-sm-3 fw-semibold">Formation Date</dt>
+            <dd class="col-sm-9">{{ fellowship.formation_date|date:"M d, Y" }}</dd>
+
+            <dt class="col-sm-3 fw-semibold">Origin Realm</dt>
+            <dd class="col-sm-9">{{ fellowship.origin_realm }}</dd>
+
+            <dt class="col-sm-3 fw-semibold">Max Members</dt>
+            <dd class="col-sm-9">{{ fellowship.max_members }}</dd>
+
+            <dt class="col-sm-3 fw-semibold">Status</dt>
+            <dd class="col-sm-9">
+                {% if fellowship.is_active %}
+                    <span class="badge bg-success">Active</span>
+                {% else %}
+                    <span class="badge bg-secondary">Inactive</span>
+                {% endif %}
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<!-- Assigned Characters -->
+<h3 class="mb-3">Assigned Characters</h3>
+{% if fellowship.characters.all %}
+<div class="card bg-white shadow-sm mb-4">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="bg-forest text-white">
+            <tr>
+                <th>Name</th>
+                <th>Race</th>
+                <th>Specialization</th>
+                <th>Combat Power</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for character in fellowship.characters.all %}
+            <tr>
+                <td class="fw-semibold">{{ character.name }}</td>
+                <td>{{ character.race }}</td>
+                <td>{{ character.specialization }}</td>
+                <td>{{ character.combat_power }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="lotr-card text-center p-4 mb-4">
+    <p class="mb-0 text-muted">No characters have joined this fellowship yet.</p>
+</div>
+{% endif %}
+
+<!-- Assigned Quests -->
+<h3 class="mb-3">Assigned Quests</h3>
+{% if fellowship.quests.all %}
+<div class="card bg-white shadow-sm">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="bg-forest text-white">
+            <tr>
+                <th>Title</th>
+                <th>Region</th>
+                <th>Threat Level</th>
+                <th>Reward (Gold)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quest in fellowship.quests.all %}
+            <tr>
+                <td class="fw-semibold">{{ quest.title }}</td>
+                <td>{{ quest.region }}</td>
+                <td>{{ quest.threat_level }}</td>
+                <td>{{ quest.reward_gold }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="lotr-card text-center p-4">
+    <p class="mb-0 text-muted">This fellowship has not been assigned any quests.</p>
+</div>
+{% endif %}
+{% endblock %}

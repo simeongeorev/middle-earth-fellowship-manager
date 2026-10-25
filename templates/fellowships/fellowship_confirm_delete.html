@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Fellowship | Middle-earth Fellowship Manager{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">Delete Fellowship</h1>
+
+<div class="lotr-card border-top-gold p-4" style="max-width: 640px;">
+    <p>
+        Are you sure you want to disband the
+        <strong class="text-danger">{{ fellowship.name }}</strong>
+        fellowship led by <strong>{{ fellowship.leader_name }}</strong>?
+        This action cannot be undone.
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-danger">Yes, Disband Fellowship</button>
+            <a href="{% url 'fellowships:detail' fellowship.pk %}" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

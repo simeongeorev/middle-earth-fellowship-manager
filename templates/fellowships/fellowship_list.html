@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Fellowships | Middle-earth Fellowship Manager{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Fellowships</h1>
+    <a href="{% url 'fellowships:create' %}" class="btn bg-forest text-white">+ New Fellowship</a>
+</div>
+
+<!-- Filter by origin realm -->
+<form method="get" class="row g-2 mb-4">
+    <div class="col-auto">
+        <input type="text" class="form-control" name="realm"
+               placeholder="Filter by realm" value="{{ request.GET.realm }}">
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn bg-forest text-white">Filter</button>
+    </div>
+    {% if request.GET.realm %}
+    <div class="col-auto">
+        <a href="{% url 'fellowships:list' %}" class="btn btn-outline-secondary">Clear</a>
+    </div>
+    {% endif %}
+</form>
+
+{% if fellowships %}
+<div class="card bg-white shadow-sm">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="bg-forest text-white">
+            <tr>
+                <th>Name</th>
+                <th>Leader</th>
+                <th>Formation Date</th>
+                <th>Origin Realm</th>
+                <th>Max Members</th>
+                <th>Status</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fellowship in fellowships %}
+            <tr>
+                <td class="fw-semibold">{{ fellowship.name }}</td>
+                <td>{{ fellowship.leader_name }}</td>
+                <td>{{ fellowship.formation_date|date:"M d, Y" }}</td>
+                <td>{{ fellowship.origin_realm }}</td>
+                <td>{{ fellowship.max_members }}</td>
+                <td>
+                    {% if fellowship.is_active %}
+                        <span class="badge bg-success">Active</span>
+                    {% else %}
+                        <span class="badge bg-secondary">Inactive</span>
+                    {% endif %}
+                </td>
+                <td class="text-end">
+                    <a href="{% url 'fellowships:detail' fellowship.pk %}" class="btn btn-sm btn-outline-primary">View</a>
+                    <a href="{% url 'fellowships:edit' fellowship.pk %}" class="btn btn-sm btn-outline-warning">Edit</a>
+                    <a href="{% url 'fellowships:delete' fellowship.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="lotr-card text-center p-5">
+    <h4>No fellowships found</h4>
+    <p class="text-muted">No fellowship has been formed yet. The road ahead is lonely...</p>
+</div>
+{% endif %}
+{% endblock %}
