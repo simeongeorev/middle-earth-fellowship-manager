@@ -36,6 +36,7 @@ PROJECT_APPS = [
     'characters',
     'fellowships',
     'quests',
+    'common',
 ]
 
 INSTALLED_APPS = [
