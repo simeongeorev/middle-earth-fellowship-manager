@@ -21,6 +21,8 @@ class Character(models.Model):
 
     name = models.CharField(max_length=50)
 
+    image_url = models.URLField()
+
     race = models.CharField(max_length=20,
                             choices=Races.choices)
 
@@ -34,7 +36,7 @@ class Character(models.Model):
 
     weapon = models.CharField(max_length=50)
 
-    biography = models.TextField()
+    biography = models.TextField(null=True, blank=True)
 
     fellowship = models.ForeignKey(to='fellowships.Fellowship',
                                    on_delete=SET_NULL,

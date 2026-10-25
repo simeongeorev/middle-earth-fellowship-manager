@@ -1,0 +1,21 @@
+{% extends 'common/base.html' %}
+
+{% block title %}Edit Character | Middle-earth Fellowship Manager{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Edit Character: {{ character.name }}</h1>
+</div>
+
+<div class="lotr-card border-top-gold p-4" style="max-width: 640px;">
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form }}
+        <div class="d-flex gap-2 mt-4">
+            <button type="submit" class="btn bg-forest text-white">Save Changes</button>
+            <a href="{% url 'characters:detail' character.pk %}" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

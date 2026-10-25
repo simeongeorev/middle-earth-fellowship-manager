@@ -1,0 +1,83 @@
+{% extends 'common/base.html' %}
+
+{% block title %}Characters | Middle-earth Fellowship Manager{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Characters</h1>
+    <a href="{% url 'characters:create' %}" class="btn bg-forest text-white">+ New Character</a>
+</div>
+
+<form method="get" class="row g-2 mb-4">
+    <div class="col-auto">
+        <input type="text" class="form-control" name="race"
+               placeholder="Filter by race" value="{{ request.GET.race }}">
+    </div>
+    <div class="col-auto">
+        <select class="form-select" name="sort">
+            <option value="name" {% if request.GET.sort == 'power' %}{% else %}selected{% endif %}>Sort by Name</option>
+            <option value="power" {% if request.GET.sort == 'power' %}selected{% endif %}>Sort by Combat Power</option>
+            <option value="fellowship" {% if request.GET.sort == 'fellowship' %}selected{% endif %}>Sort by Fellowship</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn bg-forest text-white">Apply</button>
+    </div>
+</form>
+
+{% if characters %}
+<div class="card bg-white shadow-sm">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="bg-forest text-white">
+            <tr>
+                <th>Portrait</th>
+                <th>Name</th>
+                <th>Race</th>
+                <th>Specialization</th>
+                <th>Combat Power</th>
+                <th>Weapon</th>
+                <th>Fellowship</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for character in characters %}
+            <tr>
+                <td>
+                    {% if character.image_url %}
+                        <img src="{{ character.image_url }}" alt="{{ character.name }}"
+                             class="rounded portrait-thumb">
+                    {% else %}
+                        <span class="text-muted">-</span>
+                    {% endif %}
+                </td>
+                <td class="fw-semibold">{{ character.name }}</td>
+                <td>{{ character.race }}</td>
+                <td>{{ character.specialization }}</td>
+                <td>{{ character.combat_power }}</td>
+                <td>{{ character.weapon }}</td>
+                <td>
+                    {% if character.fellowship %}
+                        {{ character.fellowship.name }}
+                    {% else %}
+                        <span class="text-muted">None</span>
+                    {% endif %}
+                </td>
+                <td class="text-end">
+                    <a href="{% url 'characters:detail' character.pk %}" class="btn btn-sm btn-outline-primary">View</a>
+                    <a href="{% url 'characters:edit' character.pk %}" class="btn btn-sm btn-outline-warning">Edit</a>
+                    <a href="{% url 'characters:delete' character.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="lotr-card text-center p-5">
+    <h4>No characters found</h4>
+    <p class="text-muted">No heroes have been recorded in the archives yet.</p>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'common/base.html' %}
+
+{% block title %}{{ character.name }} | Middle-earth Fellowship Manager{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">
+        {{ character.name }}
+        <small class="text-muted fs-5">({{ character.race }})</small>
+    </h1>
+    <div>
+        <a href="{% url 'characters:edit' character.pk %}" class="btn bg-forest text-white">Edit</a>
+        <a href="{% url 'characters:delete' character.pk %}" class="btn btn-outline-danger">Delete</a>
+    </div>
+</div>
+
+<!-- Hero Portrait + Details -->
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="lotr-card border-top-gold p-3 text-center h-100">
+            {% if character.image_url %}
+                <img src="{{ character.image_url }}" alt="{{ character.name }}"
+                     class="img-fluid rounded portrait-large">
+            {% else %}
+                <p class="text-muted mb-0">No portrait recorded.</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card bg-white shadow-sm h-100 border-top-gold">
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-3 fw-semibold">Race</dt>
+                    <dd class="col-sm-9">{{ character.race }}</dd>
+
+                    <dt class="col-sm-3 fw-semibold">Specialization</dt>
+                    <dd class="col-sm-9">{{ character.specialization }}</dd>
+
+                    <dt class="col-sm-3 fw-semibold">Combat Power</dt>
+                    <dd class="col-sm-9">{{ character.combat_power }}</dd>
+
+                    <dt class="col-sm-3 fw-semibold">Weapon</dt>
+                    <dd class="col-sm-9">{{ character.weapon }}</dd>
+
+                    <dt class="col-sm-3 fw-semibold">Fellowship</dt>
+                    <dd class="col-sm-9">
+                        {% if character.fellowship %}
+                            {{ character.fellowship.name }}
+                            <small class="text-muted">(led by {{ character.fellowship.leader_name }})</small>
+                        {% else %}
+                            <span class="text-muted">Not part of any fellowship</span>
+                        {% endif %}
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Biography -->
+<div class="lotr-card border-top-gold p-4">
+    <h3 class="mb-3">Biography</h3>
+    <p class="mb-0" style="white-space: pre-line;">{{ character.biography }}</p>
+</div>
+{% endblock %}
