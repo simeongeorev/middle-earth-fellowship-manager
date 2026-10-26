@@ -1,0 +1,64 @@
+{% extends 'common/base.html' %}
+
+{% block title %}Quests | Middle-earth Fellowship Manager{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Quests</h1>
+    <a href="{% url 'quests:create' %}" class="btn bg-forest text-white">+ New Quest</a>
+</div>
+
+{% if quests %}
+<div class="card bg-white shadow-sm">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="bg-forest text-white">
+            <tr>
+                <th>Title</th>
+                <th>Region</th>
+                <th>Threat Level</th>
+                <th>Reward (Gold)</th>
+                <th>Assigned Fellowships</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quest in quests %}
+            <tr>
+                <td class="fw-semibold">{{ quest.title }}</td>
+                <td>{{ quest.region }}</td>
+                <td>
+                    {% if quest.threat_level == 'Low' %}
+                        <span class="badge bg-success">Low</span>
+                    {% elif quest.threat_level == 'Moderate' %}
+                        <span class="badge bg-warning text-dark">Moderate</span>
+                    {% else %}
+                        <span class="badge bg-danger">Severe</span>
+                    {% endif %}
+                </td>
+                <td>{{ quest.reward_gold }}</td>
+                <td>
+                    {% if quest.assigned_fellowships.all %}
+                        {% for fellowship in quest.assigned_fellowships.all %}
+                            <span class="badge bg-secondary me-1">{{ fellowship.name }}</span>
+                        {% endfor %}
+                    {% else %}
+                        <span class="text-muted">Unassigned</span>
+                    {% endif %}
+                </td>
+                <td class="text-end">
+                    <a href="{% url 'quests:edit' quest.pk %}" class="btn btn-sm btn-outline-warning">Edit</a>
+                    <a href="{% url 'quests:delete' quest.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="lotr-card text-center p-5">
+    <h4>No quests found</h4>
+    <p class="text-muted">The realm is at peace... for now. No quests have been issued.</p>
+</div>
+{% endif %}
+{% endblock %}

@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('common.urls')),
     path('fellowships/', include('fellowships.urls')),
     path('characters/', include('characters.urls')),
+    path('quests/', include('quests.urls')),
 ]

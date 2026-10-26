@@ -21,6 +21,10 @@ class Fellowship(models.Model):
 
     is_active = models.BooleanField(default=False)
 
+    def update_status(self):
+        self.is_active = self.quests.count() > 0
+        self.save()
+
     def __str__(self):
         return self.name
 

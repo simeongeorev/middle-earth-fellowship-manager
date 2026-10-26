@@ -32,7 +32,6 @@ class Quest(models.Model):
     def __str__(self):
         return f"{self.title} ({self.region})"
 
-    # Mordor cannot have Low threat level
     def clean(self):
         super().clean()
         if self.region == self.Regions.MORDOR and self.threat_level == self.ThreatLevels.LOW:

@@ -1,0 +1,25 @@
+{% extends 'common/base.html' %}
+
+{% block title %}Delete Quest | Middle-earth Fellowship Manager{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">Delete Quest</h1>
+
+<div class="lotr-card border-top-gold p-4" style="max-width: 640px;">
+    <p>
+        Are you sure you want to abandon the quest
+        <strong class="text-danger">{{ quest.title }}</strong>
+        in <strong>{{ quest.region }}</strong>?
+        This action cannot be undone.
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-danger">Yes, Abandon Quest</button>
+            <a href="{% url 'quests:list' %}" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
