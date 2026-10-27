@@ -1,6 +1,7 @@
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
-from django.db.models import CASCADE, SET_NULL
+from django.db.models import SET_NULL
 
 
 # Create your models here.
@@ -43,6 +44,21 @@ class Character(models.Model):
                                    null=True,
                                    blank=True,
                                    related_name='characters')
+
+    def clean(self):
+        super().clean()
+        if not self.fellowship:
+            return
+
+        members_count = self.fellowship.characters.count()
+        if self.pk and self.fellowship.characters.filter(pk=self.pk).exists():
+            members_count -= 1
+
+        if members_count >= self.fellowship.max_members:
+            raise ValidationError({
+                'fellowship': f"{self.fellowship.name} is already full: "
+                              f"{members_count}/{self.fellowship.max_members} members."
+            })
 
     def __str__(self):
         return f"{self.name} ({self.race})"

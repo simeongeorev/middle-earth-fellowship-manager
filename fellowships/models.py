@@ -1,5 +1,6 @@
 from datetime import date
 
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
@@ -24,6 +25,15 @@ class Fellowship(models.Model):
     def update_status(self):
         self.is_active = self.quests.count() > 0
         self.save()
+
+    def clean(self):
+        super().clean()
+        current_members_count = self.characters.count()
+        if self.max_members < current_members_count:
+            raise ValidationError({
+                'max_members': f"This fellowship already has {current_members_count} members."
+                               f"The maximum cannot be lower than that."
+            })
 
     def __str__(self):
         return self.name
