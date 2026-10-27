@@ -1,4 +1,5 @@
 {% extends 'common/base.html' %}
+{% load combat_filters %}
 
 {% block title %}Characters | Middle-earth Fellowship Manager{% endblock %}
 
@@ -55,7 +56,10 @@
                 <td class="fw-semibold">{{ character.name }}</td>
                 <td>{{ character.race }}</td>
                 <td>{{ character.specialization }}</td>
-                <td>{{ character.combat_power }}</td>
+                <td>
+                    {{ character.combat_power|power_stars }}
+                    <small class="text-muted ms-1">{{ character.combat_power }}</small>
+                </td>
                 <td>{{ character.weapon }}</td>
                 <td>
                     {% if character.fellowship %}
