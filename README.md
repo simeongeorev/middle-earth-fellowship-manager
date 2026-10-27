@@ -47,7 +47,7 @@ middle-earth-fellowship-manager/
 
 ## Requirements
 
-- Python 3.10+
+- Python 3.12 or newer (required by Django 6.1)
 - Django 6.1.2 (see `requirements.txt`)
 - No environment variables or credentials are needed - the app runs on a local
   SQLite database that Django creates automatically.
@@ -61,33 +61,43 @@ middle-earth-fellowship-manager/
    cd middle-earth-fellowship-manager
    ```
 
-2. Create and activate a virtual environment:
+2. Check which Python versions you have installed - you need one that is 3.12 or
+   newer:
 
    ```bash
-   python -m venv .venv
-   .venv\Scripts\activate        # Windows
-   source .venv/bin/activate     # macOS / Linux
+   py --list -p 64         # Windows
+   python3 --version       # macOS / Linux
    ```
 
-3. Install the dependencies:
+3. Create and activate a virtual environment using one of the versions listed
+   above (the example below uses 3.14 - any 3.12+ works, just swap the number):
+
+   ```bash
+   py -3.14 -m venv .venv      # Windows
+   python3.14 -m venv .venv    # macOS / Linux
+   .venv\Scripts\activate      # Windows
+   source .venv/bin/activate   # macOS / Linux
+   ```
+
+4. Install the dependencies:
 
    ```bash
    pip install -r requirements.txt
    ```
 
-4. Apply the migrations (this creates the SQLite database):
+5. Apply the migrations (this creates the SQLite database):
 
    ```bash
    python manage.py migrate
    ```
 
-5. Run the app:
+6. Run the app:
 
    ```bash
    python manage.py runserver
    ```
 
-6. Open `http://127.0.0.1:8000/` in your browser. The site starts with an empty
+7. Open `http://127.0.0.1:8000/` in your browser. The site starts with an empty
    database - create everything through the navigation links (Fellowships,
    Characters, Quests).
 
@@ -96,3 +106,6 @@ middle-earth-fellowship-manager/
 - The custom 404 page (`templates/404.html`) is served when `DEBUG = False`.
   With the default `DEBUG = True` setting, Django shows its own debug 404 page.
 - The database file `db.sqlite3` is git-ignored and is created on the first migration.
+- If `pip install` says Django requires a different Python version, your virtual
+  environment was created with Python older than 3.12 - delete the `.venv` folder
+  and repeat steps 2-3 with a newer version.
